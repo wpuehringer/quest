@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:jee="http://www.springframework.org/schema/jee"
+  xmlns:lang="http://www.springframework.org/schema/lang"
+  xmlns:osgi="http://www.springframework.org/schema/osgi"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans          http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/aop            http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+    http://www.springframework.org/schema/jee            http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+    http://www.springframework.org/schema/lang           http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+    http://www.springframework.org/schema/tx             http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/util           http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+>
+  <bean id="dao" abstract="true"
+        p:session-factory-ref="sessionFactory">
+ 	<property name="messageSource" ref="daoMessageSource"/>
+  </bean>
+  
+  <bean id="questDao" class="at.pfadfindergallneukirchen.quest.dao.impl.QuestDaoImpl" parent="dao"/>
+
+  <bean id="daoMessageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basenames" >
+      <list>
+		<value>at.pfadfindergallneukirchen.quest.dao.constraints</value>
+      </list>
+    </property>
+  </bean>
+
+
+</beans>

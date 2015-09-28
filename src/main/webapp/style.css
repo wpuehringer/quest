@@ -1,0 +1,65 @@
+body, p, li, a { font-family: georgia, times, serif;font-size:13pt;}
+h1, h2, h3 { font-family: 'Yanone Kaffeesatz', arial, serif; }
+body { 
+	margin:20px;
+	padding:20px;
+}
+
+table {
+	width: 100%;
+	padding-top: 20px;
+	border-spacing: 0px;
+	font-size: 16pt;
+}
+
+td {
+	padding-top: 10px;
+}
+
+.palette {
+	width: 300px;
+}
+
+thead {
+	background-color: #71775D;
+}
+
+h1 {
+	padding : 0; margin:0;
+	font-size:24pt;
+	color:#FF5500;
+}
+
+#navigation {
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+
+#navigation a {
+	width: 250px;
+	min-width: 250px;
+	padding: 2px;
+	height: 25px;
+	position: fixed;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: block;
+	background: url("fussabdruck_background_vertikal.png") no-repeat scroll 0 50% red;
+}
+
+#logo {
+	position: fixed;
+	right: 50px;
+	top: 20px;
+	width: 275px;
+	height: 125px;
+	background: url("banner.png") no-repeat scroll 0 100% transparent;
+}
+
+.feedbackPanel li {
+	list-style: none;
+	background-color: red;
+	color: white;
+}
+}

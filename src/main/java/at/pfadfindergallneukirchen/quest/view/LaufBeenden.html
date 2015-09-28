@@ -1,0 +1,33 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+<span wicket:id="navigation"></span>
+<h1>Lauf beenden</h1>
+Quest: <span wicket:id="questName">Quest</span>-
+Punkte: <span wicket:id="questPunkte">2</span>
+<p><span wicket:id="error">Errors</span></p>
+<form wicket:id="form">
+	
+	<table>
+		<thead>
+			<tr>
+				<td>Teilnehmer</td>
+				<td>Punkte</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr wicket:id="teilnehmerRow">
+				<td><span wicket:id="teilnehmerName"></span></td>
+				<td><input type="text" wicket:id="teilnehmerPunkte"></input></td>
+			</tr>
+		</tbody>
+	</table>	
+	
+	<input type="password" wicket:id="passwort"></input>
+		
+	<input type="submit" value="Lauf beenden"></input>
+</form>
+</body>
+</html>
