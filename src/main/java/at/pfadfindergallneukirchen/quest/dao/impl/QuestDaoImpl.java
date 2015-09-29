@@ -26,17 +26,17 @@ public class QuestDaoImpl implements QuestDao {
 
 	private MessageSource messageSource;
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = messageSource;
 	}
-	
+
 	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
 	public LinkedList<Quest> getVerfuegbareQuests(int start, int end) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Quest.class);
@@ -46,7 +46,7 @@ public class QuestDaoImpl implements QuestDao {
 		criteria.setMaxResults(end-start);
 		return new LinkedList<>(criteria.list());
 	}
-	
+
 	@Override
 	public LinkedList<Quest> getQuests() {
 		return new LinkedList<>(sessionFactory.getCurrentSession().createCriteria(Quest.class).addOrder(Order.asc("name")).list());
@@ -61,7 +61,7 @@ public class QuestDaoImpl implements QuestDao {
 	public LinkedList<Teilnehmer> getAktuelleTeilnehmer() {
 		return new LinkedList<>(sessionFactory.getCurrentSession().createCriteria(Teilnehmer.class).createCriteria("lauf").add(Restrictions.isNull("endDatum")).list());
 	}
-	
+
 	@Override
 	public LinkedList<Gruppe> getGruppen() {
 		return new LinkedList<>(sessionFactory.getCurrentSession().createCriteria(Gruppe.class).addOrder(Order.asc("name")).list());
@@ -81,7 +81,7 @@ public class QuestDaoImpl implements QuestDao {
 		}
 		return new LinkedList<>(crit.addOrder(Order.asc("nachname")).addOrder(Order.asc("vorname")).list());
 	}
-	
+
 	@Override
 	public LinkedList<Person> getPersonenForLauf(List<Gruppe> gruppen) {
 		LinkedList<Person> personen = getPersonen(gruppen);
@@ -96,17 +96,17 @@ public class QuestDaoImpl implements QuestDao {
 		}
 		return personen;
 	}
-	
+
 	@Override
 	public LinkedList<Object[]> getStand(int start, int end) {
-		SQLQuery crit = sessionFactory.getCurrentSession().createSQLQuery("SELECT g.name name, count( t.punkte ) anzahl, sum( t.punkte ) / g.anzahl punkte FROM `lauf` l JOIN `quest` q ON l.que_oid = q.oid JOIN `teilnehmer` t ON t.lau_oid = l.oid JOIN `person` p ON p.oid = t.per_oid JOIN `gruppe` g ON g.oid = p.grp_oid where l.endDatum is not null GROUP BY g.name order by sum(t.punkte) / g.anzahl desc");
+		SQLQuery crit = sessionFactory.getCurrentSession().createSQLQuery("SELECT g.name, count( t.punkte ) anzahl, sum( t.punkte ) / min(g.anzahl) punkte FROM quest.lauf l JOIN quest.quest q ON l.que_oid = q.oid JOIN quest.teilnehmer t ON t.lau_oid = l.oid JOIN quest.person p ON p.oid = t.per_oid JOIN quest.gruppe g ON g.oid = p.grp_oid where l.endDatum is not null GROUP BY g.name order by sum(t.punkte) / min(g.anzahl) desc");
 		crit.addScalar("name", StandardBasicTypes.STRING);
 		crit.addScalar("anzahl", StandardBasicTypes.LONG);
 		crit.addScalar("punkte", StandardBasicTypes.LONG);
-		
+
 		crit.setFirstResult(start);
 		crit.setMaxResults(end-start);
-		
+
 		return new LinkedList<>(crit.list());
 	}
 }
